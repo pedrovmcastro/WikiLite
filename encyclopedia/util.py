@@ -34,3 +34,10 @@ def get_entry(title):
         return f.read().decode("utf-8")
     except FileNotFoundError:
         return None
+
+
+def md2html(content):
+    """
+    Receives content from a md file and returns equivalent HTML content.
+    """
+    
