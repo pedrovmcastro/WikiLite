@@ -1,8 +1,10 @@
 from django.shortcuts import render
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 from . import util
 
-import re
+import random
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -21,3 +23,8 @@ def entry(request, title):
         return render(request, "encyclopedia/error.html", {
             "message": f"Entry '{title}' not found."
         })
+    
+
+def random_page(request):
+    choice = random.choice(util.list_entries())
+    return HttpResponseRedirect(reverse("encyclopedia:entry", args=[choice]))
