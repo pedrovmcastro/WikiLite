@@ -38,6 +38,6 @@ def get_entry(title):
     
 def md2html(content):
     """
-    Converts markdown to html
+    Converts a Markdown string to an HTML string.
     """
     return Markdown().convert(content)
