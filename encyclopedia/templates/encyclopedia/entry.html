@@ -5,13 +5,5 @@
 {% endblock title %}
 
 {% block body %}
-
-    <h1>
-        {{ title }}
-    </h1>
-
-    <p>
-        {{ entry }}
-    </p>
-
+    {{ entry | safe }} <!--o safe é uma flag para a variavel ser lida como html, e não como a string literal-->
 {% endblock body %}
