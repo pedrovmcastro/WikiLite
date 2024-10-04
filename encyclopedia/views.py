@@ -25,6 +25,6 @@ def entry(request, title):
         })
     
 
-def random_page(request):
+def random_entry(request):
     choice = random.choice(util.list_entries())
     return HttpResponseRedirect(reverse("encyclopedia:entry", args=[choice]))
