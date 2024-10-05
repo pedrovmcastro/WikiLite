@@ -44,7 +44,7 @@ def md2html(content: str) -> str:
     return Markdown().convert(content)
 
 
-def case_insensitive(title: str, entries: list[str]) -> bool:
+def case_insensitive_search(title: str, entries: list[str]) -> bool:
     """
     Checks if the string 'title' is present in the 'entries' list, case insensitive.
     Returns True if the title is found in the list, ignoring case differences.

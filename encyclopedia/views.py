@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 
 from . import util
-from .forms import NewPageForm
+from .forms import NewPageForm, EditPageForm
 
 import random
 
@@ -65,11 +65,11 @@ def new_entry(request):
             content = form.cleaned_data['content']
 
             # Verify if entry already exists
-            if util.case_insensitive(title, util.list_entries()):
+            if util.case_insensitive_search(title, util.list_entries()):
                 return render(request, "encyclopedia/error.html", {
                     "message": "An entry with this title already exists."
                 })
-
+            
             util.save_entry(title, content)
             return redirect("encyclopedia:entry", title=title)
     else:
@@ -78,3 +78,29 @@ def new_entry(request):
     return render(request, "encyclopedia/new.html", {
         "form": form
     })
+
+
+def edit_entry(request, title):
+    if request.method == "POST":
+        form = EditPageForm(request.POST)
+        if form.is_valid():
+            new_title = form.cleaned_data['title']
+            new_content = form.cleaned_data['content']
+
+            if not new_title:
+                new_title = title
+
+            if not new_content:
+                new_content = util.get_entry(title)
+
+            util.save_entry(new_title, new_content)
+            return redirect("encyclopedia:entry", title=new_title)
+    else:
+        form = EditPageForm(initial={'title': title, 'content': util.get_entry(title)})
+
+    return render(request, "encyclopedia/edit.html", {
+        "form": form,
+        "title": title
+    })
+
+
