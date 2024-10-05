@@ -47,7 +47,7 @@ def search(request):
             return HttpResponseRedirect(reverse("encyclopedia:entry", args=[entries[i]]))
         else:
             # sub-strings
-            results = [entry for entry in entries if q.lower() in entry.lower()] 
+            results = (entry for entry in entries if q.lower() in entry.lower()) 
             return render(request, "encyclopedia/search.html", {
                 "results": results
             })
@@ -59,7 +59,9 @@ def search(request):
 
 def new_entry(request):
     if request.method == "POST":
+        
         form = NewPageForm(request.POST)
+        
         if form.is_valid():
             title = form.cleaned_data['title']
             content = form.cleaned_data['content']
@@ -82,7 +84,9 @@ def new_entry(request):
 
 def edit_entry(request, title):
     if request.method == "POST":
+        
         form = EditPageForm(request.POST)
+        
         if form.is_valid():
             new_title = form.cleaned_data['title']
             new_content = form.cleaned_data['content']

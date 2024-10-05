@@ -50,11 +50,4 @@ def case_insensitive_search(title: str, entries: list[str]) -> bool:
     Returns True if the title is found in the list, ignoring case differences.
     Returns False if the title is not found.
     """
-    if title in entries:
-        return True
-    else: 
-        entries_lower: list[str] = [entry.lower() for entry in entries]
-        if title.lower() in entries_lower:
-            return True
-        else:
-            return False
+    return title.lower() in (entry.lower() for entry in entries)
