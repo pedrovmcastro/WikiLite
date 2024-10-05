@@ -102,5 +102,3 @@ def edit_entry(request, title):
         "form": form,
         "title": title
     })
-
-
