@@ -47,7 +47,7 @@ def search(request):
             return HttpResponseRedirect(reverse("encyclopedia:entry", args=[entries[i]]))
         else:
             # sub-strings
-            results = (entry for entry in entries if q.lower() in entry.lower()) 
+            results = [entry for entry in entries if q.lower() in entry.lower()]
             return render(request, "encyclopedia/search.html", {
                 "results": results
             })
